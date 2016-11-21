@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-eqiuv="X-UA-Compatible" content="IE-edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>jQuery</title>
+	<!-- <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"> -->
+	<!-- <script src="node_modules/jquery/dist/jquery.js"></script> -->
+	<!-- <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script> -->
+	<script>
+		/*document.onreadystatechange = function(){
+			console.log(document.readyState);
+		};
+		document.addEventListener("DOMContentLoaded",function(){
+			console.log("DOMContentLoaded");
+		});
+		window.addEventListener("load",function(){
+			console.log("load");
+		});*/
+		// var code = document.getElementById('code');
+		// var rootUrl = "http://jsonplaceholder.typicode.com";
+		var rootUrl = "http://jsonplaceholder.typicode.com";
+		function ajaxGet(callback){
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET",rootUrl+"/photos/20",true);
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200){
+					// console.log(xhr.responseText);
+					// code.innerHTML = xhr.responseText;
+					// console.log(xhr.getAllResponseHeaders());
+					console.log("xhr readyState");
+					if(callback && callback instanceof Function){
+						callback(JSON.parse(xhr.responseText));
+					}
+				}
+			};
+			xhr.onload = function(){
+				console.log("xhr onload");
+			};
+			xhr.ontimeout = function(){
+				console.log("xhr timeout");
+			};
+			xhr.send();
+		}
+		function ajaxPost(){
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST",rootUrl+"/posts",true);
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200){
+					// console.log(xhr.responseText);
+					// code.innerHTML = xhr.responseText;
+					// console.log(xhr.getAllResponseHeaders());
+					console.log("xhr readyState");
+				}
+			};
+			xhr.onload = function(){
+				console.log("xhr onload");
+			};
+			xhr.ontimeout = function(){
+				console.log("xhr timeout");
+			};
+			xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xhr.send("name=zhangsan&age=21");
+		}
+		// ajaxPost();
+		document.addEventListener("DOMContentLoaded",alreadyLoad);
+		function alreadyLoad(){
+			//
+			alert("start");
+		}
+	</script>
+</head>
+<body>
+<img src="https://ss1.bdstatic.com/kvoZeXSm1A5BphGlnYG/skin_zoom/280.jpg?2" alt="">
+<pre id="code"></pre>
+<ul id="box"></ul>
+</body>
+</html>
